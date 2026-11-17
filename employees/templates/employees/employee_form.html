@@ -1,0 +1,172 @@
+
+{% extends 'employees/base.html' %}
+
+{% block title %}{% if employee %}Edit{% else %}Add{% endif %} Employee | EmployeeHub{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <div class="muted small mb-2">EMPLOYEES / {% if employee %}EDIT{% else %}ADD NEW{% endif %}</div>
+    <h2 class="page-title mb-1">
+        {% if employee %}Edit Employee{% else %}Add New Employee{% endif %}
+    </h2>
+    <p class="muted small mb-0">Enter employee information and manage your team.</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-xl-9">
+
+        <div class="panel overflow-hidden">
+
+            <div class="p-4 border-bottom" style="border-color:#edf0f5!important">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="stat-icon">
+                        <i class="bi bi-person-badge-fill"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">
+                            Employee Information
+                        </h5>
+                        <p class="muted small mb-0">
+                            Personal and professional details
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="p-4 p-md-5">
+
+                    <h6 class="fw-bold mb-3">
+                        <i class="bi bi-person me-2 text-warning"></i>
+                        Basic Information
+                    </h6>
+
+                    <div class="row g-4 mb-4">
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">
+                                Full Name <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="bi bi-person text-secondary"></i>
+                                </span>
+                                <input type="text" name="name"
+                                       class="form-control"
+                                       placeholder="Enter full name"
+                                       value="{{ employee.name|default:'' }}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">
+                                Email Address <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="bi bi-envelope text-secondary"></i>
+                                </span>
+                                <input type="email" name="email"
+                                       class="form-control"
+                                       placeholder="example@email.com"
+                                       value="{{ employee.email|default:'' }}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">
+                                Phone Number <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="bi bi-telephone text-secondary"></i>
+                                </span>
+                                <input type="tel" name="phone"
+                                       class="form-control"
+                                       placeholder="Enter phone number"
+                                       value="{{ employee.phone|default:'' }}"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr style="border-color:#edf0f5">
+
+                    <h6 class="fw-bold mb-3 mt-4">
+                        <i class="bi bi-briefcase me-2 text-warning"></i>
+                        Professional Information
+                    </h6>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">
+                                Designation <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="bi bi-briefcase text-secondary"></i>
+                                </span>
+                                <input type="text" name="designation"
+                                       class="form-control"
+                                       placeholder="e.g. Software Developer"
+                                       value="{{ employee.designation|default:'' }}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">
+                                Monthly Salary (₹) <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">₹</span>
+                                <input type="number" name="salary"
+                                       class="form-control"
+                                       placeholder="Enter salary"
+                                       min="0" step="0.01"
+                                       value="{{ employee.salary|default:'' }}"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="p-4 border-top d-flex justify-content-between align-items-center flex-wrap gap-3"
+                     style="background:#fafbfc;border-color:#edf0f5!important">
+
+                    <span class="muted small">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Fields marked * are required
+                    </span>
+
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'dashboard' %}"
+                           class="btn btn-light border px-4">
+                            Cancel
+                        </a>
+
+                        <button type="submit" class="btn btn-gold px-4">
+                            <i class="bi bi-check-lg me-1"></i>
+                            {% if employee %}Update Employee{% else %}Save Employee{% endif %}
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
